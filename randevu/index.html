@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#111111" />
+  <title>Korkmaz Nakliyat Randevu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      padding: 14px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 14px;
+      padding: 18px 12px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #1d1d1d, #111111);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #d4af37;
+      letter-spacing: 0.2px;
+    }
+
+    .header p {
+      margin: 7px 0 0;
+      color: #d7d7d7;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #191919;
+      border: 1px solid #2b2b2b;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    }
+
+    label {
+      display: block;
+      margin: 13px 0 6px;
+      color: #eeeeee;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #333333;
+      border-radius: 13px;
+      background: #ffffff;
+      color: #111111;
+      font-size: 16px;
+      padding: 14px;
+      outline: none;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.18);
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .small-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mini-btn {
+      border: 1px solid rgba(212,175,55,0.45);
+      background: #242424;
+      color: #f4f4f4;
+      border-radius: 12px;
+      padding: 11px 7px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .buttons {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 15px 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .whatsapp { background: #22c55e; color: #ffffff; }
+    .sms { background: #2563eb; color: #ffffff; }
+    .copy { background: #d4af37; color: #111111; }
+    .call { background: #303030; color: #ffffff; border: 1px solid #4a4a4a; }
+
+    .preview-title {
+      margin: 18px 0 8px;
+      color: #d4af37;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .preview {
+      background: #ffffff;
+      color: #111111;
+      border-radius: 15px;
+      padding: 14px;
+      white-space: pre-wrap;
+      line-height: 1.45;
+      font-size: 15px;
+      min-height: 170px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .note {
+      margin-top: 10px;
+      color: #bdbdbd;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 380px) {
+      body { padding: 10px; }
+      .grid2 { grid-template-columns: 1fr; }
+      .header h1 { font-size: 20px; }
+      input, textarea, select, button { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="header">
+      <h1>Korkmaz Nakliyat Randevu</h1>
+      <p>Müşteri bilgilendirme, hatırlatma ve yorum mesajı</p>
+    </section>
+
+    <section class="card">
+      <label for="messageType">Mesaj Türü</label>
+      <select id="messageType">
+        <option value="reservation">1. Anlaşma Sonrası Bilgilendirme</option>
+        <option value="reminder">2. Taşıma Öncesi Hatırlatma</option>
+        <option value="review">3. İş Sonrası Yorum İsteme</option>
+      </select>
+
+      <label for="customerName">Müşteri Adı Soyadı</label>
+      <input id="customerName" type="text" placeholder="Örn: Ahmet Yılmaz" autocomplete="name" />
+
+      <label for="phone">Müşteri Telefon Numarası</label>
+      <input id="phone" type="tel" inputmode="tel" placeholder="Örn: 905318410347" autocomplete="tel" />
+
+      <div class="grid2">
+        <div>
+          <label for="moveDate">Taşıma Tarihi</label>
+          <input id="moveDate" type="date" />
+        </div>
+        <div>
+          <label for="moveTime">Taşıma Saati</label>
+          <input id="moveTime" type="time" />
+        </div>
+      </div>
+
+      <div class="small-actions">
+        <button class="mini-btn" type="button" onclick="setDateShortcut(0)">Bugün</button>
+        <button class="mini-btn" type="button" onclick="setDateShortcut(1)">Yarın</button>
+        <button class="mini-btn" type="button" onclick="setDateShortcut(2)">Öbür Gün</button>
+      </div>
+
+      <label for="fromAddress">Çıkış Adresi</label>
+      <textarea id="fromAddress" placeholder="Eşyaların alınacağı adres"></textarea>
+
+      <label for="toAddress">Varış / Teslim Adresi</label>
+      <textarea id="toAddress" placeholder="Eşyaların teslim edileceği adres"></textarea>
+
+      <div class="buttons">
+        <button class="whatsapp" type="button" onclick="sendWhatsApp()">WhatsApp ile Gönder</button>
+        <button class="sms" type="button" onclick="sendSMS()">SMS ile Gönder</button>
+        <button class="copy" type="button" onclick="copyMessage()">Metni Kopyala</button>
+        <button class="call" type="button" onclick="callCustomer()">Müşteriyi Ara</button>
+      </div>
+
+      <div class="preview-title">Mesaj Önizlemesi</div>
+      <div id="preview" class="preview"></div>
+
+      <div class="note">
+        Google yorum linki sabittir: https://g.page/r/CU15Rsvnt7g6EBM/review
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const REVIEW_LINK = "https://g.page/r/CU15Rsvnt7g6EBM/review";
+
+    const ids = [
+      "messageType",
+      "customerName",
+      "phone",
+      "moveDate",
+      "moveTime",
+      "fromAddress",
+      "toAddress"
+    ];
+
+    ids.forEach(function(id) {
+      document.getElementById(id).addEventListener("input", function() {
+        saveForm();
+        updatePreview();
+      });
+      document.getElementById(id).addEventListener("change", function() {
+        saveForm();
+        updatePreview();
+      });
+    });
+
+    function val(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "...";
+      const parts = dateValue.split("-");
+      if (parts.length !== 3) return dateValue;
+      return parts[2] + "." + parts[1] + "." + parts[0];
+    }
+
+    function cleanPhone(phone) {
+      let p = phone.replace(/\D/g, "");
+      if (p.startsWith("0")) p = "9" + p;
+      if (p.length === 10) p = "90" + p;
+      return p;
+    }
+
+    function getMessage() {
+      const type = val("messageType");
+      const name = val("customerName") || "Değerli müşterimiz";
+      const date = formatDate(val("moveDate"));
+      const time = val("moveTime") || "...";
+      const from = val("fromAddress") || "...";
+      const to = val("toAddress") || "...";
+
+      if (type === "reservation") {
+        return `Merhaba ${name},
+
+Korkmaz Nakliyat olarak taşıma planlamanız oluşturulmuştur.
+
+Taşıma tarihi: ${date}
+Taşıma saati: ${time}
+
+Çıkış adresi:
+${from}
+
+Teslim adresi:
+${to}
+
+Ekibimiz belirtilen tarih ve saatte çıkış adresinde hazır olacaktır. Bilgilerde değişiklik varsa taşıma günü öncesinde bize bilgi vermenizi rica ederiz.
+
+Bizi tercih ettiğiniz için teşekkür ederiz.
+
+Korkmaz Nakliyat`;
+      }
+
+      if (type === "reminder") {
+        return `Merhaba ${name},
+
+Korkmaz Nakliyat olarak yaklaşan taşıma randevunuzu hatırlatmak isteriz.
+
+Taşıma tarihi: ${date}
+Taşıma saati: ${time}
+
+Çıkış adresi:
+${from}
+
+Planlanan saatte ekibimiz adresinizde olacaktır. Adres, saat veya müsaitlik durumunda değişiklik varsa lütfen önceden bizimle iletişime geçiniz.
+
+İyi günler dileriz.
+
+Korkmaz Nakliyat`;
+      }
+
+      return `Merhaba ${name},
+
+Korkmaz Nakliyat olarak bizi tercih ettiğiniz için teşekkür ederiz. Taşıma sürecinizde memnuniyetiniz bizim için çok değerlidir.
+
+Hizmetimizden memnun kaldıysanız Google üzerinden kısa bir yorum bırakmanız bize büyük destek olur.
+
+Yorum yapmak için:
+${REVIEW_LINK}
+
+Güzel günlerde kullanmanız dileğiyle.
+
+Korkmaz Nakliyat`;
+    }
+
+    function updatePreview() {
+      document.getElementById("preview").innerText = getMessage();
+    }
+
+    function sendWhatsApp() {
+      const phone = cleanPhone(val("phone"));
+      if (!phone) {
+        alert("Lütfen müşteri telefon numarasını giriniz.");
+        return;
+      }
+      const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(getMessage());
+      window.open(url, "_blank");
+    }
+
+    function sendSMS() {
+      const phone = cleanPhone(val("phone"));
+      if (!phone) {
+        alert("Lütfen müşteri telefon numarasını giriniz.");
+        return;
+      }
+      const body = encodeURIComponent(getMessage());
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      window.location.href = isIOS ? "sms:" + phone + "&body=" + body : "sms:" + phone + "?body=" + body;
+    }
+
+    function copyMessage() {
+      const text = getMessage();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          alert("Mesaj kopyalandı.");
+        }).catch(function() {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      alert("Mesaj kopyalandı.");
+    }
+
+    function callCustomer() {
+      const phone = cleanPhone(val("phone"));
+      if (!phone) {
+        alert("Lütfen müşteri telefon numarasını giriniz.");
+        return;
+      }
+      window.location.href = "tel:+" + phone;
+    }
+
+    function setDateShortcut(addDays) {
+      const d = new Date();
+      d.setDate(d.getDate() + addDays);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      document.getElementById("moveDate").value = yyyy + "-" + mm + "-" + dd;
+      saveForm();
+      updatePreview();
+    }
+
+    function saveForm() {
+      const data = {};
+      ids.forEach(function(id) {
+        data[id] = document.getElementById(id).value;
+      });
+      localStorage.setItem("korkmazRandevuForm", JSON.stringify(data));
+    }
+
+    function loadForm() {
+      try {
+        const raw = localStorage.getItem("korkmazRandevuForm");
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        ids.forEach(function(id) {
+          if (data[id] !== undefined) document.getElementById(id).value = data[id];
+        });
+      } catch (e) {}
+    }
+
+    loadForm();
+    updatePreview();
+  </script>
+</body>
+</html>
